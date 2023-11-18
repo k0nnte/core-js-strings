@@ -155,8 +155,15 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  // throw new Error('Not implemented');
+  if (str.indexOf(value) !== -1) {
+    const ind = str.indexOf(value);
+    const rez = str.slice(0, ind) + str.slice(ind + value.length);
+    return rez;
+  }
+
+  return str;
 }
 
 /**
@@ -171,8 +178,14 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  if (str.lastIndexOf(value) !== -1) {
+    const ind = str.lastIndexOf(value);
+    const rez = str.slice(0, ind) + str.slice(ind + value.length);
+    return rez;
+  }
+
+  return str;
 }
 
 /**
@@ -187,8 +200,15 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  if (!str) {
+    return 0;
+  }
+  let sum = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    sum += str.charCodeAt(i);
+  }
+  return sum;
 }
 
 /**
@@ -234,8 +254,14 @@ function endsWith(str, substr) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  // throw new Error('Not implemented');
+  const min =
+    minutes < 10 ? minutes.toString().padStart(2, `0`) : minutes.toString();
+  const sec =
+    seconds < 10 ? seconds.toString().padStart(2, `0`) : seconds.toString();
+  const rez = `${min}:${sec}`;
+  return rez;
 }
 
 /**
@@ -321,8 +347,9 @@ function countVowels(str) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const strr = str.toLocaleLowerCase().replace(/[^\w+]/g, ``);
+  return strr === strr.split('').reverse().join('');
 }
 
 /**
@@ -360,8 +387,12 @@ function findLongestWord(sentence) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/*str/*) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  const mas = str.split(' ');
+  for (let i = 0; i < mas.length; i += 1) {
+    mas[i] = mas[i].split('').reverse().join('');
+  }
+  return mas.join(' ');
 }
 
 /**
@@ -375,8 +406,17 @@ function reverseWords(/*str/*) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+
+function invertCase(str) {
+  const mas = str.split('');
+  for (let i = 0; i < mas.length; i += 1) {
+    if (mas[i] === mas[i].toUpperCase()) {
+      mas[i] = mas[i].toLowerCase();
+    } else {
+      mas[i] = mas[i].toUpperCase();
+    }
+  }
+  return mas.join('');
 }
 
 /**
@@ -392,8 +432,8 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -406,8 +446,10 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  const mas = value.match(/Hello,\s(\w+)\s(\w+)!/);
+  const str = `${mas[1]} ${mas[2]}`;
+  return str;
 }
 
 /**
@@ -421,8 +463,9 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  const mas = str.match(/<(\w+)>/);
+  return mas[1];
 }
 
 /**
@@ -440,8 +483,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(`;`);
 }
 
 /**
@@ -460,8 +503,21 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alf = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz?!';
+  const newstr = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm?!';
+
+  const mas = str.split(' ');
+  const rezult = [];
+  let rez = '';
+  for (let i = 0; i < mas.length; i += 1) {
+    for (let j = 0; j < mas[i].length; j += 1) {
+      rez += newstr[alf.indexOf(mas[i][j])];
+    }
+    rezult.push(rez);
+    rez = '';
+  }
+  return rezult.join(' ');
 }
 
 /**
@@ -488,8 +544,62 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const mas = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  return mas.indexOf(value);
 }
 
 module.exports = {
